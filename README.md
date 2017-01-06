@@ -1,25 +1,29 @@
-# Simple and Minimal
+# SignalR Client
 
-- Keeping it simple and minimal for your startup projects.
-- No Node server require. Just build and see the index file on your favorite browser.
-- Easy and extendable.
+A micro service for SignalR JavaScript client wrapped in Typescript.
 
-# Stack
-- React
-- React Router
-- Redux
-- Typescript 2
-- React Toolbox (hey! this one is trivial to include. But you are good here.)
-- SASS support
-- Babel
-- Webpack
 
-# Installation
-// If you dont have typescript and webpack installed globally.
-npm install -g typescript webpack // globally install typescript and webpack
-npm link typescript // link the global version of typescript instead of the local copy on the node_modules folder.
+# How It Works
+```javaScript
+import { SocketService } from './service';
+import { ISocketService } from './interfaces';
 
-npm install // install project dependencies
-webpack // build your changes
+let service:ISocketService = new SocketService({
+    IsLogging: true,
+    HostUrl: '[host_url]';
+});
 
-Lastly, click the index.html or drop it to your favorite browser.
+service.Connect((connected) => {
+    console.log(connected);
+})
+
+service.Subscribe('SomeEvent', (response) => {
+    console.log(response);
+});
+
+service.Subscribe('EventNotExists', (response) => {
+    console.log(response);
+});
+
+service.Disconnect();
+```
